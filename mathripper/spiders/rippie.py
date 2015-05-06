@@ -6,16 +6,9 @@ import html2text
 
 class RippieSpider(Spider):
     name = 'webripper'
-    allowed_domains = ["genealogy.ams.org/"]
-    start_urls = list("http://www.genealogy.ams.org/id.php?id=" + str(i) for i in range(191625))
-    #]
-    #def __init__(self):
-    #    self.page_number = 191625
-
-   # def start_requests(self):
-   #     for i in range (self.page_number, number_of_pages, -1):
-   #         yield Request(url =  % i, callback=self.parse)
-
+    allowed_domains = ["genealogy.math.ndsu.nodak.edu/"]
+    start_urls = list("http://genealogy.math.ndsu.nodak.edu/id.php?id=" + str(i) for i in range(191625))
+    
     def parse(self, response):
 
         sel = Selector(response)
@@ -24,7 +17,6 @@ class RippieSpider(Spider):
 
         for site in sites:
             item = MathRip()
-            #url = start_url[0] + 'id.php?id=%d' % i
             name_sample = sel.xpath('//*[@id="paddingWrapper"]/h2').extract()[0]
             school_sample = sel.xpath('//*[@id="paddingWrapper"]/div[2]/span/span').extract()[0]
             year_sample = sel.xpath('//*[@id="paddingWrapper"]/div[2]/span/text()[2]').extract()[0]
